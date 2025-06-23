@@ -5,17 +5,15 @@ dotenv.config();
 const port = 5000;
 
 async function main() {
-   try {
-        // Connect to MongoDB using the URI from .env
-        await mongoose.connect(process.env.MONGODB_URI as string);
-        console.log('✅ MongoDB connected');
+    try {
+        await mongoose.connect(`${process.env.MONGODB_URI}`);
+        console.log('MongoDB connected');
 
-        // Start the server
         app.listen(port, () => {
-            console.log(`🚀 Server is listening on port ${port}`);
+            console.log(`Server is listening to port ${port}`);
         });
     } catch (error) {
-        console.error('❌ Error connecting to MongoDB:', error);
+        console.log('Error in main function in server.ts', error);
     }
 }
 

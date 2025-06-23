@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import Book from '../bookmodules';
+import Book from '../models/book.model';
 
 export const bookRouter = express.Router();
 
@@ -62,7 +62,7 @@ bookRouter.get('/', async (req: Request, res: Response) => {
 // Get book by id
 bookRouter.get('/:bookId', async (req: Request, res: Response) => {
     try {
-        const id = await req.params.bookId;
+        const id = req.params.bookId;
         const book = await Book.findOne({ _id: new Object(id) });
         res.status(201).json({
             success: true,
@@ -83,7 +83,7 @@ bookRouter.get('/:bookId', async (req: Request, res: Response) => {
 // update book by id
 bookRouter.patch('/:bookId', async (req: Request, res: Response) => {
     try {
-        const id = await req.params.bookId;
+        const id = req.params.bookId;
         const updatedDoc = req.body;
         const book = await Book.findByIdAndUpdate(id, updatedDoc, { new: true });
         res.status(201).json({
@@ -105,7 +105,7 @@ bookRouter.patch('/:bookId', async (req: Request, res: Response) => {
 // Delete book by id
 bookRouter.delete('/:bookId', async (req: Request, res: Response) => {
     try {
-        const id = await req.params.bookId;
+        const id = req.params.bookId;
         await Book.findByIdAndDelete(id);
         res.status(201).json({
             success: true,

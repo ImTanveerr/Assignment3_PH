@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import Borrow from '../borrowmodules';
-import Book from '../bookmodules';
+import Borrow from '../models/borrow.model';
+import Book from '../models/book.model';
 
 export const borrowRouter = express.Router();
 
@@ -56,7 +56,7 @@ borrowRouter.post('/', async (req: Request, res: Response): Promise<void> => {
 
 
 // Get summery of borrowed books using mongodb aggregate
-borrowRouter.get('/', async (req: Request, res: Response) => {
+borrowRouter.get('/', async (_: Request, res: Response) => {
     try {
         const borrows = await Borrow.aggregate([
             {
